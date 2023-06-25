@@ -1,4 +1,24 @@
 
+# Each of the LESTER SCALING FUNCTIONS provided in this library is is a function f(x,p) 
+# defined on x in [0,1] and p in (-1,+1) in such a way that the following properties hold:
+#
+#      (0) f(x,p) in [0,1].
+#      (1) f(x,0) = x 
+#      (2) f(1,p) = 1.
+#      (3) f(0,p) = 0.
+#      (4) f(x,p) < f(y,p)  if and only if x < y.
+#      (5) f(x,p) = f(y,p)  if and only if x = y.
+#      (6) lim_{p->+1} f(x,p) = 1 for all x in (0,1].
+#      (7) lim_{p->-1} f(x,p) = 0 for all x in [0,1).
+#
+# In other words:
+#
+#    * each of the LESTER SCALING FUNCTIONS is a non-linear endpoint-preserving and rank-preserving
+# rescalings of x on the unit interval [0,1], 
+#    * p=0 is is the trivial mapping x --> x,
+#    * maximal up-weigthing is approached as p --> +1, and
+#    * maximal dn-weigthing is approached as p --> -1.
+
 # A Moore scaling factor "S" is sometimes chosen by examiners.
 #
 # When chosen, the interpretation of "S" is that it is the factor by which
@@ -15,21 +35,22 @@
 # be a simply multiplication of every mark in the distribution by the factor "S". This could be
 # called "LINEAR scaling".  However, if S>>1, then linear scaling can lead individuals who already
 # scored a raw mark close to 100% receving a scaled score of more than 100%! Many examiners object
-# to such scaling artefacts, so as an alternative to LINEAR scaling one my use LESTER scaling.
-# LESTER scaling uses the non-linear one-parameter family of curves f_p(x) shown by running the
+# to such scaling artefacts, so as an alternative to LINEAR scaling one my one of the non-linear
+# scaling functions provided by this library.
+
 # demo() function defined in this file.
 # 
-# The parameter p in (0,1) controlling the strength of the Lester scaling satisfies:
+# The parameter p in (-1,+1) controlling the strength of the Lester scaling satisfies:
 #
-#        (p=-1) ==> "max DOWN scaling",  i.e. f_{-1}(x) = 0
-#        (p= 0) ==> "no scaling",        i.e. f_{ 0}(x) = x
-#        (p=+1) ==> "max UP   scaling",  i.e. f_{+1}(x) = 1
+#        (p close to -1) ==> "max DOWN scaling",  i.e. f_{p}(x) --> 0 (except at x=1) as p --> -1
+#        (p = 0)         ==> "no scaling",        i.e. f_{0}(x) = x
+#        (p close to +1) ==> "max UP   scaling",  i.e. f_{p}(x) --> 1 (except at x=0) as p --> +1
 #
 # Using these factors, the individual raw marks would be scaled as follows:
 #
 #        scaled_mark = max_mark * f_{p}(raw_mark/max_mark)
 #
-# where max_mark is the largest mark possilbe (usually 100), and "p" is a strength which is 
+# where max_mark is the largest mark possible (usually 100), and "p" is a strength which is 
 # chosen to achieve the desired property (*). Note that the non-linear nature of LESTER scaling 
 # means that the value of p needed to achieve (*) cannot usually be found without iteration. 
 # However, it is a simple matter to play a shooting-game to establish the correct value of p 
