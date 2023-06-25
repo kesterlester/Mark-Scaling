@@ -36,7 +36,7 @@ from numpy import sign, sqrt
 # However, it is a simple matter to play a shooting-game to establish the correct value of p 
 # to achieve (*) as the family of functions is monotonic in p (and x).
 #
-# FWIW the lester_scale_function is defined/derived as follows. It is the UNIQUELY determined 
+# FWIW the hyperbolic is defined/derived as follows. It is the UNIQUELY determined 
 # family of conics (in (x,f_p(x)) space [I suspect most if not all are hyperbolae] which have 
 # the properties that: 
 #
@@ -48,11 +48,10 @@ from numpy import sign, sqrt
 #           is varied at constant speed, and 
 #     (d) they are assymptotic to the boundaries of the unit square at extreme p = +- 1.
 
-def f(x, p):
+def hyperbolic(x, p):
     # Avoid numerical instability very close to y=x:
     # print("DEBUG lesterScaling x= ",x," p= ",p)
     if (abs(p)<0.0001):  # Was <0.000001 (five zeros after decimal point) when first camsis upload done. Prefer 0.0001 (three zeros after decimal point) now.
-
         ans = x
     else:
         s = sign(p)
@@ -63,41 +62,60 @@ def f(x, p):
     #print("DEBUG lesterScaling                                        ans= ",ans)
     return ans
 
-def lester_scale_function(x,p):
-    return f(x,p)
+def skewTopHinged(x, p):
+    return x ** ((1.0 - p)/(1.0 + p))
 
+def skewBottomHinged(x, p):
+    return 1.0 - skewTopHinged(1.0 - x, -p)
 
-def demo_specific_curves(curves, figsize=(10,10), filename=""):
+def skewMean(x, p):
+    return 0.5*(skewTopHinged(x,p) + skewBottomHinged(x,p))
+
+scaling_functions = {
+      hyperbolic,
+      skewTopHinged,
+      skewBottomHinged,
+      skewMean,
+    }
+
+def demo_specific_curves(curves, figsize=(10,10), pdfPathPrefix="", pngPathPrefix=""):
     import matplotlib.pyplot as plt
     import numpy as np
     
-    x = np.linspace(0, 1, 100)
+    for scaling_function in scaling_functions:
 
-    #create line plot with multiple lines
-    plt.rcParams["figure.figsize"] = figsize
-    plt.gca().set_aspect('equal')
-    plt.gca().set(xlabel="x     (raw mark fraction)")
-    plt.gca().set(ylabel="f(x,p)     (scaled mark fraction)")
-
-    for p,lab in curves:
-      plt.plot(x, lester_scale_function(x,p), linewidth=2, label=lab)
+        x = np.linspace(0, 1, 100)
     
-    #add legend
-    plt.legend()
-   
-    if filename != "":
-        plt.savefig(filename, \
-            metadata={'CreationDate': None} ) # prevent the PDF changing for trivial reasons.
+        #create line plot with multiple lines
+        plt.rcParams["figure.figsize"] = figsize
+        plt.gca().set_aspect('equal')
+        plt.gca().set(xlabel="x     (raw mark fraction)")
+        plt.gca().set(ylabel="f(x,p)     (scaled mark fraction)")
+    
+        for p,lab in curves:
+          plt.plot(x, scaling_function(x,p), linewidth=2, label=lab)
+       
+        #add legend
+        plt.legend()
+        plt.title("Curves from the "+str(scaling_function.__name__) + " scaling function")
+       
+        if pdfPathPrefix != "":
+            plt.savefig(pdfPathPrefix + str(scaling_function.__name__)+".pdf", \
+                metadata={'CreationDate': None} ) # prevent the PDF changing for trivial reasons.
 
-    #display plot
-    plt.show()
+        if pngPathPrefix != "":
+            plt.savefig(pngPathPrefix + str(scaling_function.__name__)+".png", \
+                metadata={'CreationDate': None} ) # prevent the PNG changing for trivial reasons.
+    
+        #display plot
+        plt.show()
 
-def demo(filename=""):
+def demo(pdfPathPrefix="", pngPathPrefix=""):
     import numpy as np
     
     curves = [ (p, "p="+str(round(p,1)) ) for p in np.arange(+0.9999999,-0.9999999,-0.0999) ]
-    demo_specific_curves(curves, filename=filename)
+    demo_specific_curves(curves, pdfPathPrefix=pdfPathPrefix, pngPathPrefix=pngPathPrefix)
 
 if __name__ == '__main__':
     # Execute when the module is not initialized from an import statement
-    demo()
+    demo(pdfPathPrefix="./Scaling_Function_")
