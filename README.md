@@ -173,7 +173,7 @@ lesterScaling.plot_scaling_function_curves(functions=(lesterScaling.hyperbolic,)
 The top hinged skew scaling functioins are the bottom hinged ones rotated by 180 degrees about the centre of the unit square.
 
 ### Formula:
-\\( f(x,p) = x^{\frac {1-p}{1+p}}\\)
+$ f(x,p) = x^{\frac {1-p}{1+p}} $
 
 
 ```python
