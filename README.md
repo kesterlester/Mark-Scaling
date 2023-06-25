@@ -61,7 +61,7 @@ lesterScaling.scaling_functions
 
 
 
-## A couple of toy usage examples:
+## Example usage:
 
 
 ```python
@@ -108,7 +108,7 @@ print("     "+str(scaled_marks_2)+".\n")
     
 
 
-# Plot the scaling functions:
+## Plot the scaling functions:
 
 
 ```python
