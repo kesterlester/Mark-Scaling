@@ -22,7 +22,7 @@ In other words:
 * maximal up-weigthing is approached as p --> +1, and
 * maximal dn-weigthing is approached as p --> -1.
 
-A scaling functions, f, could be used to scale individual raw marks as follows:
+A scaling function, f, could be used to scale individual raw marks as follows:
 
         scaled_mark = max_mark * f(raw_mark/max_mark, p)
 
