@@ -68,21 +68,29 @@ def skewTopHinged(x, p):
 def skewBottomHinged(x, p):
     return 1.0 - skewTopHinged(1.0 - x, -p)
 
-def skewMean(x, p):
+def skewSymmetric(x, p):
     return 0.5*(skewTopHinged(x,p) + skewBottomHinged(x,p))
 
-scaling_functions = {
-      hyperbolic,
-      skewTopHinged,
-      skewBottomHinged,
-      skewMean,
-    }
+scaling_functions =  [ \
+        hyperbolic, \
+        skewSymmetric, \
+        skewTopHinged, \
+        skewBottomHinged, \
+        ]
 
-def demo_specific_curves(curves, figsize=(10,10), pdfPathPrefix="", pngPathPrefix=""):
+def plot_scaling_function_curves(functions=scaling_functions, p_values=None, figsize=(10,10), pdfPathPrefix="", pngPathPrefix=""):
     import matplotlib.pyplot as plt
     import numpy as np
     
-    for scaling_function in scaling_functions:
+    if p_values == None:
+        # create a  symmetric range of p_values which fit in (-1,1) and which are delta apart.
+        delta = 0.0999
+        p_values = [delta*n for n in range(    -int(np.floor(1.0/delta)),  +int(np.floor(1.0/delta))+1 ) ]
+        
+        
+    for scaling_function in functions:
+        
+        function_name = str(scaling_function.__name__)
 
         x = np.linspace(0, 1, 100)
     
@@ -92,30 +100,26 @@ def demo_specific_curves(curves, figsize=(10,10), pdfPathPrefix="", pngPathPrefi
         plt.gca().set(xlabel="x     (raw mark fraction)")
         plt.gca().set(ylabel="f(x,p)     (scaled mark fraction)")
     
-        for p,lab in curves:
+        for p in p_values:
+          lab = str(round(p, 1))
           plt.plot(x, scaling_function(x,p), linewidth=2, label=lab)
        
         #add legend
         plt.legend()
-        plt.title("Curves from the "+str(scaling_function.__name__) + " scaling function")
+        
+        plt.title("Curves from the " + function_name + " scaling function")
        
         if pdfPathPrefix != "":
-            plt.savefig(pdfPathPrefix + str(scaling_function.__name__)+".pdf", \
+            plt.savefig(pdfPathPrefix + function_name + ".pdf", \
                 metadata={'CreationDate': None} ) # prevent the PDF changing for trivial reasons.
 
         if pngPathPrefix != "":
-            plt.savefig(pngPathPrefix + str(scaling_function.__name__)+".png", \
+            plt.savefig(pngPathPrefix + function_name + ".png", \
                 metadata={'CreationDate': None} ) # prevent the PNG changing for trivial reasons.
     
         #display plot
         plt.show()
 
-def demo(pdfPathPrefix="", pngPathPrefix=""):
-    import numpy as np
-    
-    curves = [ (p, "p="+str(round(p,1)) ) for p in np.arange(+0.9999999,-0.9999999,-0.0999) ]
-    demo_specific_curves(curves, pdfPathPrefix=pdfPathPrefix, pngPathPrefix=pngPathPrefix)
-
 if __name__ == '__main__':
     # Execute when the module is not initialized from an import statement
-    demo(pdfPathPrefix="./Scaling_Function_")
+    plot_scaling_function_curves()
