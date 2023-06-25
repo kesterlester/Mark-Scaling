@@ -1,48 +1,5 @@
 # A library of mark scaling functions which preserve endpoints.
 
-## General notes:
-
-Each of the LESTER SCALING FUNCTIONS provided in this library is is a function f(x,p) 
-defined on x in [0,1] and p in (-1,+1) in such a way that the following properties hold:
-
-1. f(x,p) is always in [0,1].
-2. f(x,0) = x 
-3. f(1,p) = 1.
-4. f(0,p) = 0.
-5. f(x,p) < f(y,p)  if and only if x < y  (up to float precision effects)
-6. f(x,p) > f(y,p)  if and only if x > y  (up to float precision effects)
-7. lim_{p->+1} f(x,p) = 1 for all x in (0,1].
-8. lim_{p->-1} f(x,p) = 0 for all x in [0,1).
-
-In other words:
-
-* each of the LESTER SCALING FUNCTIONS is a non-linear endpoint-preserving and rank-preserving
- rescaling of x on the unit interval [0,1], 
-* p=0 is is the trivial mapping x --> x,
-* maximal up-weigthing is approached as p --> +1, and
-* maximal dn-weigthing is approached as p --> -1.
-
-A scaling function, f, could be used to scale individual raw marks as follows:
-
-        scaled_mark = max_mark * f(raw_mark/max_mark, p)
-
-where max_mark is the largest mark possible (usually 100), and "p" is a strength of the scaling.
-
-Note that the non-linear nature of these scaling functions means that the value of 
-p needed to achieve any given movement of the mean of the distrubution being scaled cannot usually be found without iteration. 
-However, it is a simple matter to play a shooting-game to establish
-the correct value of p to any desired mean movement as the family of functions is 
-monotonic in p (and x).
-
-## Dependencies
-
-lesterScaling has no dependencies if you use only the skew scaling functions.
-
-lesterScaling depends on numpy if you use the hyperbolic scaling function.
-
-lesterScaling depends on matplitlib if you use its built-in scaling function drawing methods.
-
-
 ## The following scaling functions are available:
 
 
@@ -108,33 +65,180 @@ print("     "+str(scaled_marks_2)+".\n")
     
 
 
-## Plot the available scaling functions:
+## General notes:
+
+Each of the LESTER SCALING FUNCTIONS provided in this library is is a function f(x,p) 
+defined on x in [0,1] and p in (-1,+1) in such a way that the following properties hold:
+
+1. f(x,p) is always in [0,1].
+2. f(x,0) = x 
+3. f(1,p) = 1.
+4. f(0,p) = 0.
+5. f(x,p) < f(y,p)  if and only if x < y  (up to float precision effects)
+6. f(x,p) > f(y,p)  if and only if x > y  (up to float precision effects)
+7. lim_{p->+1} f(x,p) = 1 for all x in (0,1].
+8. lim_{p->-1} f(x,p) = 0 for all x in [0,1).
+
+In other words:
+
+* each of the LESTER SCALING FUNCTIONS is a non-linear endpoint-preserving and rank-preserving
+ rescaling of x on the unit interval [0,1], 
+* p=0 is is the trivial mapping x --> x,
+* maximal up-weigthing is approached as p --> +1, and
+* maximal dn-weigthing is approached as p --> -1.
+
+A scaling function, f, could be used to scale individual raw marks as follows:
+
+        scaled_mark = max_mark * f(raw_mark/max_mark, p)
+
+where max_mark is the largest mark possible (usually 100), and "p" is a strength of the scaling.
+
+Note that the non-linear nature of these scaling functions means that the value of 
+p needed to achieve any given movement of the mean of the distrubution being scaled cannot usually be found without iteration. 
+However, it is a simple matter to play a shooting-game to establish
+the correct value of p to any desired mean movement as the family of functions is 
+monotonic in p (and x).
+
+## Dependencies
+
+lesterScaling has no dependencies if you use only the skew scaling functions.
+
+lesterScaling depends on numpy if you use the hyperbolic scaling function.
+
+lesterScaling depends on matplitlib if you use its built-in scaling function drawing methods.
+
+
+# The available scaling functions:
+
+# Hyperbolic scaling function:
+
+### Pros:
+* Very symmetric and easy to define conceptually.
+* Conceptual definition has impartiality (not favouring/disfavouring any particular class of student) at its core.
+### Cons
+* Implementation must consider and work around instability at \\(p=0\\).
+* Algebraic forumla looks opaque.
+* No scaling function is every truly fair. Each is arbitrary it its own way.
+### Formula:
+
+These are the UNIQUELY determined family of hyperbolae (in \\( (x,f(x,p)) \\) space with the following properties:
+*  each hyperbola passes through the top right and bottom left corners of the unit square with corners (0,0) amd (1,1), 
+*  each hyperbola is symmetric about the diagonal running from top-left to bottom right of that unit square,
+*  the location of the midpoint of each hyperbola,  \\(\text{mid}(p)\\), satisfies:
+\\(                         \text{mid}(p) = (1/2 - p/2, 1/2 + p/2) \\)
+           ... i.e.  the last-mentioned diagonal is traversed at uniform speed if "p" 
+           is varied at constant speed, and 
+* they hyperbolae are assymptotic to the boundaries of the unit square at as \\(p\\) tends to \\(\pm1\\).
+
+The above requirements force:
+\\[ f(x,p) = {b - \sqrt{b^2-ac} \over a} \\]
+
+where
+
+\\[ s = \text{sign} (p), \\]
+
+\\[ a=(1-|p|)^2, \\]
+
+\\[ b=a(1-x) + 2x + s-1, \\]
+and
+\\[ c=x (a(x-2) + 2s + 2). \\]
+
+The above function is susecptible to numerical instability for \\(p\\) close to zero, so in the implementation a conditioner is applied to prevent problems.
+
 
 
 ```python
-lesterScaling.plot_scaling_function_curves()
+lesterScaling.plot_scaling_function_curves(functions=(lesterScaling.hyperbolic,))
 ```
 
 
     
-![png](README_files/README_7_0.png)
+![png](README_files/README_8_0.png)
+    
+
+
+# "Top Hinged" Skew scaling function:
+
+### Pros:
+* Simple algebraic formula.
+* No numerical instability.
+### Cons
+* Formula is totally arbitrary (i.e. it is not constructed with any particular ideas of fairness in mind).
+* It rescales high marks very differently to low marks. It may therfore be percieced as not impartial.
+* No scaling function is every truly fair. Each is arbitrary it its own way.
+### Notes:
+The top hinged skew scaling functioins are the bottom hinged ones rotated by 180 degrees about the centre of the unit square.
+
+### Formula:
+\\( f(x,p) = x^{\frac {1-p}{1+p}}\\)
+
+
+```python
+lesterScaling.plot_scaling_function_curves(functions=(lesterScaling.skewTopHinged,))
+```
+
+
+    
+![png](README_files/README_10_0.png)
+    
+
+
+# "Bottom Hinged" Skew scaling function:
+
+### Pros:
+* Simple algebraic formula.
+* No numerical instability.
+### Cons:
+* Formula is totally arbitrary (i.e. it is not constructed with any particular ideas of fairness in mind).
+* It rescales high marks very differently to low marks. It may therfore be percieced as not impartial.
+* No scaling function is every truly fair. Each is arbitrary it its own way.
+
+### Notes:
+The bottom hinged skew scaling functioins are the top hinged ones rotated by 180 degrees about the centre of the unit square.
+### Formula:
+\\( f(x,p) = 1-(1-x)^{\frac {1+p}{1-p}}\\)
+
+
+
+```python
+lesterScaling.plot_scaling_function_curves(functions=(lesterScaling.skewBottomHinged,))
+```
+
+
+    
+![png](README_files/README_12_0.png)
+    
+
+
+# "Symmetric" Skew scaling function:
+
+### Pros:
+* Simple algebraic formula.
+* No numerical instability.
+* Formula is marginally less arbitrary than the other scaling functions, as it at least attempts to treat people in the top x% of the mark range symmetrically to how it treats the people in the bottom x% of the mark range.
+### Cons:
+* Formula is still fairly arbitrary.
+* No scaling function is every truly fair. Each is arbitrary it its own way.
+
+### Notes:
+The bottom hinged skew scaling functioins are the top hinged ones rotated by 180 degrees.
+### Formula:
+\\( f(x,p) = \frac  1 2 (t(x,p) + b(x,p)) \\)
+where \\(t(x,p)\\) and \\(b(x,p)\\) are the top and bottom hinged skew scaling functions.
+
+
+
+```python
+lesterScaling.plot_scaling_function_curves(functions=(lesterScaling.skewSymmetric,))
+```
+
+
+    
+![png](README_files/README_14_0.png)
     
 
 
 
-    
-![png](README_files/README_7_1.png)
-    
+```python
 
-
-
-    
-![png](README_files/README_7_2.png)
-    
-
-
-
-    
-![png](README_files/README_7_3.png)
-    
-
+```
