@@ -108,7 +108,7 @@ print("     "+str(scaled_marks_2)+".\n")
     
 
 
-## Plot the scaling functions:
+## Plot the available scaling functions:
 
 
 ```python
