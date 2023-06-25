@@ -1,4 +1,3 @@
-from numpy import sign, sqrt
 
 # A Moore scaling factor "S" is sometimes chosen by examiners.
 #
@@ -49,6 +48,8 @@ from numpy import sign, sqrt
 #     (d) they are assymptotic to the boundaries of the unit square at extreme p = +- 1.
 
 def hyperbolic(x, p):
+    from numpy import sign, sqrt
+
     # Avoid numerical instability very close to y=x:
     # print("DEBUG lesterScaling x= ",x," p= ",p)
     if (abs(p)<0.0001):  # Was <0.000001 (five zeros after decimal point) when first camsis upload done. Prefer 0.0001 (three zeros after decimal point) now.
@@ -85,7 +86,7 @@ def plot_scaling_function_curves(functions=scaling_functions, p_values=None, fig
     if p_values == None:
         # create a  symmetric range of p_values which fit in (-1,1) and which are delta apart.
         delta = 0.0999
-        p_values = [delta*n for n in range(    -int(np.floor(1.0/delta)),  +int(np.floor(1.0/delta))+1 ) ]
+        p_values = [ -delta*n for n in range(    -int(np.floor(1.0/delta)),  +int(np.floor(1.0/delta))+1 ) ]
         
         
     for scaling_function in functions:
