@@ -37,18 +37,10 @@
 # scored a raw mark close to 100% receving a scaled score of more than 100%! Many examiners object
 # to such scaling artefacts, so as an alternative to LINEAR scaling one my one of the non-linear
 # scaling functions provided by this library.
-
-# demo() function defined in this file.
-# 
-# The parameter p in (-1,+1) controlling the strength of the Lester scaling satisfies:
 #
-#        (p close to -1) ==> "max DOWN scaling",  i.e. f_{p}(x) --> 0 (except at x=1) as p --> -1
-#        (p = 0)         ==> "no scaling",        i.e. f_{0}(x) = x
-#        (p close to +1) ==> "max UP   scaling",  i.e. f_{p}(x) --> 1 (except at x=0) as p --> +1
+# Using one or more of these scaling functions, f, the individual raw marks would be scaled as follows:
 #
-# Using these factors, the individual raw marks would be scaled as follows:
-#
-#        scaled_mark = max_mark * f_{p}(raw_mark/max_mark)
+#        scaled_mark = max_mark * f(raw_mark/max_mark, p)
 #
 # where max_mark is the largest mark possible (usually 100), and "p" is a strength which is 
 # chosen to achieve the desired property (*). Note that the non-linear nature of LESTER scaling 
@@ -56,7 +48,7 @@
 # However, it is a simple matter to play a shooting-game to establish the correct value of p 
 # to achieve (*) as the family of functions is monotonic in p (and x).
 #
-# FWIW the hyperbolic is defined/derived as follows. It is the UNIQUELY determined 
+# FWIW the hyperbolic scaling function is defined/derived as follows. It is the UNIQUELY determined 
 # family of conics (in (x,f_p(x)) space [I suspect most if not all are hyperbolae] which have 
 # the properties that: 
 #
