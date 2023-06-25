@@ -65,7 +65,18 @@ print("     "+str(scaled_marks_2)+".\n")
     
 
 
-## General notes:
+## Dependencies
+
+lesterScaling has no dependencies if you use only the skew scaling functions.
+
+lesterScaling depends on numpy if you use the hyperbolic scaling function.
+
+lesterScaling depends on matplitlib if you use its built-in scaling function drawing methods.
+
+
+## The available scaling functions:
+
+### General notes applicable to all scaling functions:
 
 Each of the LESTER SCALING FUNCTIONS provided in this library is is a function f(x,p) 
 defined on x in [0,1] and p in (-1,+1) in such a way that the following properties hold:
@@ -99,18 +110,9 @@ However, it is a simple matter to play a shooting-game to establish
 the correct value of p to any desired mean movement as the family of functions is 
 monotonic in p (and x).
 
-## Dependencies
-
-lesterScaling has no dependencies if you use only the skew scaling functions.
-
-lesterScaling depends on numpy if you use the hyperbolic scaling function.
-
-lesterScaling depends on matplitlib if you use its built-in scaling function drawing methods.
 
 
-# The available scaling functions:
-
-# Hyperbolic scaling function:
+## Hyperbolic scaling function:
 
 ### Pros:
 * Very symmetric and easy to define conceptually.
@@ -153,18 +155,19 @@ lesterScaling.plot_scaling_function_curves(functions=(lesterScaling.hyperbolic,)
 
 
     
-![png](README_files/README_8_0.png)
+![png](README_files/README_9_0.png)
     
 
 
-# "Top Hinged" Skew scaling function:
+## "Top Hinged" Skew scaling function:
 
 ### Pros:
 * Simple algebraic formula.
 * No numerical instability.
+* Good if you want approximately a linear stretch toward centered on 100%.
 ### Cons
 * Formula is totally arbitrary (i.e. it is not constructed with any particular ideas of fairness in mind).
-* It rescales high marks very differently to low marks. It may therfore be percieced as not impartial.
+* It rescales low marks very differently to high marks. It may therfore not be percieved as impartial.
 * No scaling function is every truly fair. Each is arbitrary it its own way.
 ### Notes:
 The top hinged skew scaling functioins are the bottom hinged ones rotated by 180 degrees about the centre of the unit square.
@@ -179,18 +182,19 @@ lesterScaling.plot_scaling_function_curves(functions=(lesterScaling.skewTopHinge
 
 
     
-![png](README_files/README_10_0.png)
+![png](README_files/README_11_0.png)
     
 
 
-# "Bottom Hinged" Skew scaling function:
+## "Bottom Hinged" Skew scaling function:
 
 ### Pros:
 * Simple algebraic formula.
 * No numerical instability.
+* Good if you want approximately a linear stretch toward centered on 0%.
 ### Cons:
 * Formula is totally arbitrary (i.e. it is not constructed with any particular ideas of fairness in mind).
-* It rescales high marks very differently to low marks. It may therfore be percieced as not impartial.
+* It rescales low marks very differently to high marks. It may therfore not be percieved as impartial.
 * No scaling function is every truly fair. Each is arbitrary it its own way.
 
 ### Notes:
@@ -206,11 +210,11 @@ lesterScaling.plot_scaling_function_curves(functions=(lesterScaling.skewBottomHi
 
 
     
-![png](README_files/README_12_0.png)
+![png](README_files/README_13_0.png)
     
 
 
-# "Symmetric" Skew scaling function:
+## "Symmetric" Skew scaling function:
 
 ### Pros:
 * Simple algebraic formula.
@@ -234,7 +238,7 @@ lesterScaling.plot_scaling_function_curves(functions=(lesterScaling.skewSymmetri
 
 
     
-![png](README_files/README_14_0.png)
+![png](README_files/README_15_0.png)
     
 
 
