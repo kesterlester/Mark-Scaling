@@ -64,8 +64,7 @@ def hyperbolic(x, p):
     validate(p)
     from numpy import sign, sqrt
     # Avoid numerical instability very close to y=x:
-    # print("DEBUG lesterScaling x= ",x," p= ",p)
-    if (abs(p)<0.0001):  # Was <0.000001 (five zeros after decimal point) when first camsis upload done. Prefer 0.0001 (three zeros after decimal point) now.
+    if (abs(p)<0.0001):
         ans = x
     else:
         s = sign(p)
@@ -73,7 +72,6 @@ def hyperbolic(x, p):
         b = a*(1.0-x) + 2.0*x + s - 1.0
         c = x*( a*(x-2.0) + 2.0*s + 2.0)
         ans = (b - s*sqrt(b**2 - a*c))/a
-    #print("DEBUG lesterScaling                                        ans= ",ans)
     return ans
 
 def skewTopHinged(x, p):
