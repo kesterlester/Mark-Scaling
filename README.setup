@@ -1,5 +1,3 @@
-# If goes pear shaped, commit 51cabe79b9d03bcd696465c9b45aed09d599d50c with Identities - bak - before tweak.xlsx should work.
-
 
 ################################
 # ENVIRONMENT SETUP
@@ -10,124 +8,25 @@
 #    Set up a venv in venv if you don't already have one:
 #    python3 -m venv venv ; source venv/bin/activate ; pip install --upgrade pip ; pip install notebook matplotlib
 #
-# Thereafter:
-
 # To prepare to work
-source venv/bin/activate
-
-################################
-# CREATION OF AN IDENTITY FILE
-################################
-#   
-#   This software needs an 'identity' package (supported by an 'identity' spreadsheet) to keep track of 
-#   which candidates are known to have withdrawn from or are absent from certain papers, or should have 
-#   special "class 1 values" used for their class, etc.
-#   
-#   The identity file is also needed to allow:
-
-#      * de-anonymisation of the students after marking in the final class list 
-#      * cross-translating between CRSID / USN / BGC (blind grading codes) 
-         where different ones are used on the TIS
-#        of the students after marking in the final class list 
-#      * helping the senior to track down the causes of missing students/papers, etc.
-#      * which papers were not expected to be sat, etc, according to the grade roster,
-#      * listing students of PHYSICAL_SCIENCES or who withdrew after doing some FW but 
-#        long before the grade roster was generated.
-#   
-#   The format for the identity spreadsheet is based on the grade roster but with some extra columns.
-#   Most notable changes are:
 #
-#        * a copy of every paper column but with the titles ending in an extra "W" to record 
-#          EXAM EXCEPTION notices to EXAMINERS recieved just before that exam.  In such a column the 
-#          withdrawal notices is recorded with a "w" in the relevant cell. Note that late into the 
-#          process of marking in 2023 we discovered that a candidate can be "withdrawn from a paper"
-#          but not "withdrawn from the course".  This was contrary to some of the instructions we
-#          had been given early on which had said that "withdrawn" always means "withdrawn from the course".
-#          This means that much of the code here was written with "w in one column means w in all columns" ...
-#          which was found to be wrong on the day of the final examiners meeting of 2023. To get round this
-#          the senior examiner removed any w's for candidates who had only a single w against them (always
-#          an option paper) so that they would not bne treated as withdrawn everywhere. Next year (2024) 
-#          another approach would be a good idea -- i.e. putting alternative logic in at the appropriate places.
-#        * a "TRIPOS" column so that you can also add in rows for physical science students.
-#        * a "CLASS 1 VALUE" column for special class 1 values supplied by the exam schools.
-#        * in addition to X values in paper columns indicating that a candidate is not registered 
-#          to take that exam, the senior can also add "EA" for "Explained Absence" against a paper 
-#          to indicate that it's fine that no paper was supplied. The reason for the EA can be 
-#          added in the "EA Explained Absence reasons" column. Usually it is a candidate registering 
-#          for more papers than needed, and so dropping one, but it could also be illness.
-#        * a DISREGARD_REASON column to contain reasons for which candidates should be disregarded for the purposes of their marks generating a class.   Note that it is not necessary to record a reason in this DISREGARD_REASON column for candidates with a "special class 1 value" as they will automatically be considered as having a valid DISREGARD_REASON (namely that they have a special class 1 value!).
-
-#   Note that university policy seems to be that the GRADE ROSTER can/should always contain marks that were scored by the candidate (whether or not the candidate was withdrawn) and that marks on the GRADE ROSTER can be left empty ( "" ) rather than set to zero if nothing was actually marked.  I.e. the principle is that the GRADE ROSTER should faithfully record marks awarded, even if they were not used to generate a class. See email to CGL from Helen Marshall (Cavendish Teaching) and Craig Belcher (grade.roster@admin.cam.ac.uk) on 12th/13th June 2023.  However, the Moore Scaling, etc, and other things like that, should probably not be based on incomplete marks from partially withdrawn students, hence the "unified" markbook" needs a flag to allow it to HOLD NON-NAN (i.e. NON-NULL) MARKS FOR CANDIDATES WHO WILL BE DISREGARDED FOR CLASSING BUT WHO WILL STILL NEED GRADES RECORDED ON THE ROSTER.
-
-#   Therefore a non-null entry in the "DISREGARD_REASON" column in the "Identity" file is intended to mean that:
-#   The candidate's marks (whether null or non-null) should not influence any other candidates marks (e.g. via participation
-#   in Moore Scaling calculations) or influence any other candidate's rank (no rank will be generated, nor will they affect the total rank count), nor will
-#   the candidate's marks affect their or anyone else's class (they will not appear on the class list generated by the examiners except
-#   as a result of EAMC awards/determinations like DDH, etc). 
-#   HOWEVER:
-#   This disregading does not prevent any NON-NULL mark(s) for  individual piece(s) of work being recorded on the grade roster, 
-#   and hence non-null marks are still recorded in the UnifiedMarkbook for "disregarded" candidates, since that's the only way
-#   of getting their mark(s) onto the grade roster.  Such marks would be scaled by any factors which scale the marks of 
-#   anyone else in their cohort.
-
-# Subsequent processing has to therefore pay close attention to the "disregard" response provided by identity.disregard() or identity.disregard_with_reason():
-
-# disregard = True    ===> non-null marks for the candidate will enter UnifiedMarkbook so as to reach grade roster, bur are not to be used for any other purpose.
-# disregard = False   ===> all candidate's marks should go to UnifiedMarkbook and can influence their own marks and the ranks of others.
-
-# Note also that as the identity file is "evolving" (as the Senior learns of student issues, withdrawals, and as marks come in from other examiners) there will initially be a lot of "nan"s entering the UnifiedMarkbook.  However, the job of the senior should be eventually to establish a reason for any such NaNs so that either (a) an appropriate reason / entry can be entered into the identity spreadsheet, or (b) a correction can be made to a markbook, so that (c) eventually no NaNs appear in the unified markbook. Why? Because NaN's are irrelevant for disregarded candidates, and for non-disregarded candidates shoudl appear as a blank on their Grade Roster entry (assuming, of course, that no script was lost for them).
-
-# I have tried to colour-code the column labels in the Identity file such that:
-#   * Vibrant cyan ==> actively used lots by the code 
-#   * faint cyan ====> only used unblinded or for human readable info rather than active processing
-
-################################
-# FETCHING MARKBOOKS
-################################
-
-# To get local copies of the markbooks supplied by examiners (can't store them on github!)
-./fetchLocalCopiesOfPreferredMarkbooks.sh
-
-# Senior examiner is recommended to ensure that fetched markbooks contain null entries in the marks column where no script was found. These will be interpreted as NaN later on which is desired to flag up the absence of a script.
-# Typically a Senior Examiner may need to tweak examiner supplied markbooks, e.g. by removing extraneous lines.
-
-# Can do both of the features below in ./rerun.sh
-#
-# ################################
-# # UNIFIED MARKBOOK
-# ################################
-# 
-# # Then extract things from that local cache and put it in Outputs/UnifiedMarkbook.csv
-# ./unifyMarkbooks.py
-# head -5 Outputs/UnifiedMarkbook.csv
-# 
-# ################################
-# # UNIFIED MARKBOOK
-# ################################
-# 
-# # See if the students have done the right number of questions:
-# ./runChecksOnUnifiedMarkbook.py
-# 
+# source venv/bin/activate
 
 
 ################################
-# MAKING PLOTS, RESCALING, CLASSING, RANKING
+# TESTING / README.md generation.
 ################################
-
-# This all takes place within the jupyter notebook makePlots.ipynb
-
-jupyter notebook makePlots.ipynb
-
-# Within above a task of the examiners will be to choose values for the final class boundaries and moore rescalings, but editing the two statements below:
-
-def THE_EXAMINER_SELECTED_NON_TRIVIAL_MOORE_SCALINGS():
-    return {'5/AFD': 1.15, '6/PNP': 1.36, '7/QCM': 1.10, '8/SCM': 0.99}
-
-EXAMINERS_FINAL_CLASS_MARK_BOUNDARIES = (0.71, 0.571, 0.494, 0.388) 
-
-However, before that is possible a lot of iterative markbook running will be needed to determine which of the various errors and warnings which are discovered mean that a script was lost, etc.  Each of those may require an edit to "Identity.xlsx" or to a markbook.
-
-###############################
-# AFTER GENERATION OF THE GRADE_ROSTER, DO SOME HAND EDITING AS DESCRIBED IN THE README_HAND_EDIT FILE
-###############################
-
+# 
+# You can test/play by running
+# 
+# jupyter notebook README.ipynb
+# 
+# The above notebook is also used to generate the github readme file ( README.md ) by running:
+# 
+# 	./regenerateMarkdownReadmeFileFromIpynb.sh
+# 
+# which really just does:
+# 
+#     jupyter nbconvert --execute --to markdown README.ipynb 
+# 
+# 

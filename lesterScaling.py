@@ -6,8 +6,8 @@
 #      (1) f(x,0) = x 
 #      (2) f(1,p) = 1.
 #      (3) f(0,p) = 0.
-#      (4) f(x,p) < f(y,p)  if and only if x < y.
-#      (5) f(x,p) = f(y,p)  if and only if x = y.
+#      (4) f(x,p) < f(y,p)  if and only if x < y (up to float precision).
+#      (5) f(x,p) = f(y,p)  if and only if x = y (up to float precision).
 #      (6) lim_{p->+1} f(x,p) = 1 for all x in (0,1].
 #      (7) lim_{p->-1} f(x,p) = 0 for all x in [0,1).
 #

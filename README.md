@@ -1,5 +1,7 @@
 # A library of mark scaling functions which preserve endpoints.
 
+## General notes:
+
 Each of the LESTER SCALING FUNCTIONS provided in this library is is a function f(x,p) 
 defined on x in [0,1] and p in (-1,+1) in such a way that the following properties hold:
 
@@ -7,8 +9,8 @@ defined on x in [0,1] and p in (-1,+1) in such a way that the following properti
 2. f(x,0) = x 
 3. f(1,p) = 1.
 4. f(0,p) = 0.
-5. f(x,p) < f(y,p)  if and only if x < y.
-6. f(x,p) = f(y,p)  if and only if x = y.
+5. f(x,p) < f(y,p)  if and only if x < y  (up to float precision effects)
+6. f(x,p) > f(y,p)  if and only if x > y  (up to float precision effects)
 7. lim_{p->+1} f(x,p) = 1 for all x in (0,1].
 8. lim_{p->-1} f(x,p) = 0 for all x in [0,1).
 
@@ -31,6 +33,14 @@ p needed to achieve any given movement of the mean of the distrubution being sca
 However, it is a simple matter to play a shooting-game to establish
 the correct value of p to any desired mean movement as the family of functions is 
 monotonic in p (and x).
+
+## Dependencies
+
+lesterScaling has no dependencies if you use only the skew scaling functions.
+
+lesterScaling depends on numpy if you use the hyperbolic scaling function.
+
+lesterScaling depends on matplitlib if you use its built-in scaling function drawing methods.
 
 
 ## The following scaling functions are available:
