@@ -15,7 +15,7 @@ defined on x in [0,1] and p in (-1,+1) in such a way that the following properti
 In other words:
 
 * each of the LESTER SCALING FUNCTIONS is a non-linear endpoint-preserving and rank-preserving
- rescalings of x on the unit interval [0,1], 
+ rescaling of x on the unit interval [0,1], 
 * p=0 is is the trivial mapping x --> x,
 * maximal up-weigthing is approached as p --> +1, and
 * maximal dn-weigthing is approached as p --> -1.
