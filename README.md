@@ -71,7 +71,7 @@ raw_marks = [ 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100 ]
 
 max_mark = 100   # The maximum possible mark, not the largest mark obtained.
 
-p_value = 0.05   # Parameter to choose how strong the mark scaling shouild be. 
+p_value = 0.05   # Parameter to choose how strong the mark scaling should be. 
 
 # Scale the above raw marks and round to one decimal place using the "hyperbolic" scaling function:
 scaled_marks_1 = [ round(lesterScaling.hyperbolic(raw_mark/max_mark, p_value)*max_mark, 1) \
