@@ -173,7 +173,7 @@ lesterScaling.plot_scaling_function_curves(functions=(lesterScaling.hyperbolic,)
 The top hinged skew scaling functioins are the bottom hinged ones rotated by 180 degrees about the centre of the unit square.
 
 ### Formula:
-$ f(x,p) = x^{\frac {1-p}{1+p}} $
+\\( f(x,p) = x^{\frac {1-p}{1+p}} \\)
 
 
 ```python
@@ -219,13 +219,11 @@ lesterScaling.plot_scaling_function_curves(functions=(lesterScaling.skewBottomHi
 ### Pros:
 * Simple algebraic formula.
 * No numerical instability.
-* Formula is marginally less arbitrary than the other scaling functions, as it at least attempts to treat people in the top x% of the mark range symmetrically to how it treats the people in the bottom x% of the mark range.
+* Formula is marginally less arbitrary than the other **skew** scaling functions, as it at least attempts to treat people in the top x% of the mark range symmetrically to how it treats the people in the bottom x% of the mark range.
 ### Cons:
 * Formula is still fairly arbitrary.
 * No scaling function is every truly fair. Each is arbitrary it its own way.
 
-### Notes:
-The bottom hinged skew scaling functioins are the top hinged ones rotated by 180 degrees.
 ### Formula:
 \\( f(x,p) = \frac  1 2 (t(x,p) + b(x,p)) \\)
 where \\(t(x,p)\\) and \\(b(x,p)\\) are the top and bottom hinged skew scaling functions.
