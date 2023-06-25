@@ -26,9 +26,9 @@ import lesterScaling
 
 raw_marks = [ 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100 ]
 
-max_mark = 100               # The maximum possible mark, not the largest mark obtained.
+max_mark = 100   # The maximum possible mark, not the largest mark obtained.
 
-p_value = 0.05               # Parameter to choose how strong the mark scaling shouild be. 
+p_value = 0.05   # Parameter to choose how strong the mark scaling shouild be. 
 
 # Scale the above raw marks and round to one decimal place using the "hyperbolic" scaling function:
 scaled_marks_1 = [ round(lesterScaling.hyperbolic(raw_mark/max_mark, p_value)*max_mark, 1) \
@@ -46,7 +46,8 @@ scaled_marks_2 = [ round(lesterScaling.skewSymmetric(raw_mark/max_mark, p_value)
 
 print("")
 print("Alternatively, for the same scaling strength the skewSymmetric scaling function would generate:\n")
-print("     "+str(scaled_marks_2)+".")
+print("     "+str(scaled_marks_2)+".\n")
+
 
 ```
 
@@ -61,6 +62,7 @@ print("     "+str(scaled_marks_2)+".")
     Alternatively, for the same scaling strength the skewSymmetric scaling function would generate:
     
          [0.0, 11.7, 22.6, 33.1, 43.4, 53.5, 63.3, 73.0, 82.4, 91.5, 100.0].
+    
 
 
 # Plot the scaling functions:

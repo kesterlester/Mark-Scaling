@@ -48,8 +48,8 @@
 #     (d) they are assymptotic to the boundaries of the unit square at extreme p = +- 1.
 
 def hyperbolic(x, p):
+    validate(p)
     from numpy import sign, sqrt
-
     # Avoid numerical instability very close to y=x:
     # print("DEBUG lesterScaling x= ",x," p= ",p)
     if (abs(p)<0.0001):  # Was <0.000001 (five zeros after decimal point) when first camsis upload done. Prefer 0.0001 (three zeros after decimal point) now.
@@ -64,6 +64,7 @@ def hyperbolic(x, p):
     return ans
 
 def skewTopHinged(x, p):
+    validate(p)
     return x ** ((1.0 - p)/(1.0 + p))
 
 def skewBottomHinged(x, p):
@@ -78,6 +79,10 @@ scaling_functions =  [ \
         skewTopHinged, \
         skewBottomHinged, \
         ]
+
+def validate(p):
+    if p>=1 or p<=-1:
+        raise ValueError("The strength parameter for a mark rescaling must be in (-1,1). I.e. it must must be less than 1.0 and greater than -1.0. You chose "+str(p))
 
 def plot_scaling_function_curves(functions=scaling_functions, p_values=None, figsize=(10,10), pdfPathPrefix="", pngPathPrefix=""):
     import matplotlib.pyplot as plt
@@ -102,8 +107,10 @@ def plot_scaling_function_curves(functions=scaling_functions, p_values=None, fig
         plt.gca().set(ylabel="f(x,p)     (scaled mark fraction)")
     
         for p in p_values:
-          lab = str(round(p, 1))
-          plt.plot(x, scaling_function(x,p), linewidth=2, label=lab)
+          rounded_p = round(p,2)
+          # Round p for reasons of space, but don't mislead readers into thinking that p is allowed to be 1 or -1:
+          p_for_label = rounded_p if (abs(rounded_p) != 1.0) else p
+          plt.plot(x, scaling_function(x,p), linewidth=2, label="p="+str(p_for_label))
        
         #add legend
         plt.legend()
