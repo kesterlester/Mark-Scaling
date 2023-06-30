@@ -123,14 +123,13 @@ monotonic in p (and x).
 * No scaling function is every truly fair. Each is arbitrary it its own way.
 ### Formula:
 
-These are the UNIQUELY determined family of hyperbolae (in \\( (x,f(x,p)) \\) space with the following properties:
+These are the UNIQUELY determined family of hyperbolae (in $(x,f(x,p))$ space with the following properties:
 *  each hyperbola passes through the top right and bottom left corners of the unit square with corners (0,0) amd (1,1), 
 *  each hyperbola is symmetric about the diagonal running from top-left to bottom right of that unit square,
-*  the location of the midpoint of each hyperbola,  \\(\text{mid}(p)\\), satisfies:
-$$                         \text{mid}(p) = (1/2 - p/2, 1/2 + p/2) $$
+*  the location of the midpoint of each hyperbola,  $\text{mid}(p)$, satisfies:  $\text{mid}(p) = (1/2 - p/2, 1/2 + p/2) $
            ... i.e.  the last-mentioned diagonal is traversed at uniform speed if "p" 
            is varied at constant speed, and 
-* they hyperbolae are assymptotic to the boundaries of the unit square at as \\(p\\) tends to \\(\pm1\\).
+* they hyperbolae are assymptotic to the boundaries of the unit square at as $p$ tends to $\pm1$.
 
 The above requirements force:
 $$ f(x,p) = {b - \sqrt{b^2-ac} \over a}$$
@@ -173,7 +172,7 @@ lesterScaling.plot_scaling_function_curves(functions=(lesterScaling.hyperbolic,)
 The top hinged skew scaling functioins are the bottom hinged ones rotated by 180 degrees about the centre of the unit square.
 
 ### Formula:
-\\( f(x,p) = x^{\frac {1-p}{1+p}} \\)
+$$ f(x,p) = x^{\frac {1-p}{1+p}}$$
 
 
 ```python
@@ -200,7 +199,7 @@ lesterScaling.plot_scaling_function_curves(functions=(lesterScaling.skewTopHinge
 ### Notes:
 The bottom hinged skew scaling functioins are the top hinged ones rotated by 180 degrees about the centre of the unit square.
 ### Formula:
-\\( f(x,p) = 1-(1-x)^{\frac {1+p}{1-p}}\\)
+$$ f(x,p) = 1-(1-x)^{\frac {1+p}{1-p}} $$
 
 
 
@@ -225,8 +224,8 @@ lesterScaling.plot_scaling_function_curves(functions=(lesterScaling.skewBottomHi
 * No scaling function is every truly fair. Each is arbitrary it its own way.
 
 ### Formula:
-\\( f(x,p) = \frac  1 2 (t(x,p) + b(x,p)) \\)
-where \\(t(x,p)\\) and \\(b(x,p)\\) are the top and bottom hinged skew scaling functions.
+$$ f(x,p) = \frac  1 2 (t(x,p) + b(x,p)) $$
+where $t(x,p)$ and $b(x,p)$ are the top and bottom hinged skew scaling functions described earlier.
 
 
 
