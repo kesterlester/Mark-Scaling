@@ -132,9 +132,7 @@ These are the UNIQUELY determined family of hyperbolae (in $(x,f(x,p))$ space wi
 * they hyperbolae are assymptotic to the boundaries of the unit square at as $p$ tends to $\pm1$.
 
 The above requirements force:
-
-$$f(x,p) = {b - \sqrt{b^2-ac} \over a}$$
-
+$$f(x,p) = \frac{b - \sqrt{b^2-ac}} a$$
 where
 
 $$ s = \text{sign} (p),$$
