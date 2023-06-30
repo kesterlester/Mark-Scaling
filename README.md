@@ -78,15 +78,15 @@ lesterScaling depends on matplitlib if you use its built-in scaling function dra
 
 ### General notes applicable to all scaling functions:
 
-Each of the LESTER SCALING FUNCTIONS provided in this library is is a function f(x,p) 
-defined on x in [0,1] and p in (-1,+1) in such a way that the following properties hold:
+Each of the LESTER SCALING FUNCTIONS provided in this library is is a function $f(x,p)$ 
+defined on $x\in[0,1]$ and $p\in (-1,+1)$ in such a way that the following properties hold:
 
 1. f(x,p) is always in [0,1].
-2. f(x,0) = x 
-3. f(1,p) = 1.
-4. f(0,p) = 0.
-5. f(x,p) < f(y,p)  if and only if x < y  (up to float precision effects)
-6. f(x,p) > f(y,p)  if and only if x > y  (up to float precision effects)
+2. $f(x,0) = x$.
+3. $f(1,p) = 1$.
+4. $f(0,p) = 0$.
+5. $f(x,p) < f(y,p)$  if and only if $x < y$  (up to float precision effects)
+6. $f(x,p) > f(y,p)$  if and only if $x > y$  (up to float precision effects)
 7. lim_{p->+1} f(x,p) = 1 for all x in (0,1].
 8. lim_{p->-1} f(x,p) = 0 for all x in [0,1).
 
@@ -126,24 +126,24 @@ monotonic in p (and x).
 These are the UNIQUELY determined family of hyperbolae (in $(x,f(x,p))$ space with the following properties:
 *  each hyperbola passes through the top right and bottom left corners of the unit square with corners (0,0) amd (1,1), 
 *  each hyperbola is symmetric about the diagonal running from top-left to bottom right of that unit square,
-*  the location of the midpoint of each hyperbola,  $\text{mid}(p)$, satisfies:  $\text{mid}(p) = (1/2 - p/2, 1/2 + p/2) $
-           ... i.e.  the last-mentioned diagonal is traversed at uniform speed if "p" 
+*  the location of the midpoint of each hyperbola,  $\text{mid}(p)$, satisfies: $\text{mid}(p) = (1/2 - p/2, 1/2 + p/2)$ ... i.e.  the last-mentioned diagonal is traversed at uniform speed if "$p$" 
            is varied at constant speed, and 
 * they hyperbolae are assymptotic to the boundaries of the unit square at as $p$ tends to $\pm1$.
 
 The above requirements force:
-$$f(x,p) = \frac{b - \sqrt{b^2-ac}} a$$
+$$f(x,p) = {b - \sqrt{b^2-ac}} \over a$$
+
 where
 
-$$ s = \text{sign} (p),$$
+$$s = \text{sign} (p),$$
 
-$$ a=(1-|p|)^2, $$
+$$a=(1-|p|)^2,$$
 
-$$ b=a(1-x) + 2x + s-1, $$
+$$b=a(1-x) + 2x + s-1,$$
 and
-$$ c=x (a(x-2) + 2s + 2).$$
+$$c=x (a(x-2) + 2s + 2).$$
 
-A naive implementation of the above function would be susecptible to numerical instability for $p$ close to zero, so in the actual implementation a conditioner is applied to prevent that problem arising.
+A naive implementation of above function would be susecptible to numerical instability for $p$ close to zero, so in the acutal implementation a conditioner is used to prevent that problem.
 
 
 
@@ -198,7 +198,7 @@ lesterScaling.plot_scaling_function_curves(functions=(lesterScaling.skewTopHinge
 ### Notes:
 The bottom hinged skew scaling functioins are the top hinged ones rotated by 180 degrees about the centre of the unit square.
 ### Formula:
-$$ f(x,p) = 1-(1-x)^{\frac {1+p}{1-p}} $$
+$$f(x,p) = 1-(1-x)^{\frac {1+p}{1-p}}$$
 
 
 
@@ -224,7 +224,7 @@ lesterScaling.plot_scaling_function_curves(functions=(lesterScaling.skewBottomHi
 
 ### Formula:
 $$f(x,p) = \frac  1 2 (t(x,p) + b(x,p))$$
-where $t(x,p)$ and $b(x,p)$ are the top and bottom hinged skew scaling functions described earlier.
+where $t(x,p)$ and $b(x,p)$ are the top and bottom hinged skew scaling functions.
 
 
 
