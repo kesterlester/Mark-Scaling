@@ -124,7 +124,7 @@ monotonic in $p$ (and $x$).
 ## Hyperbolic scaling function:
 
 ### Pros:
-* This scaling function is **strictly rank preserving**.
+* This scaling function is **strictly rank preserving** and **endpoint preserving**.
 * Very symmetric and easy to define conceptually.
 * Conceptual definition has impartiality (not favouring/disfavouring any particular class of student) at its core.
 ### Cons
@@ -170,7 +170,7 @@ lesterScaling.plot_scaling_function_curves(functions=(lesterScaling.hyperbolic,)
 ## "Top Hinged" Skew scaling function:
 
 ### Pros:
-* This scaling function is **strictly rank preserving**.
+* This scaling function is **strictly rank preserving** and **endpoint preserving**.
 * Simple algebraic formula.
 * No numerical instability.
 * Good if you want approximately a linear stretch centered on 100%.
@@ -198,7 +198,7 @@ lesterScaling.plot_scaling_function_curves(functions=(lesterScaling.skewTopHinge
 ## "Bottom Hinged" Skew scaling function:
 
 ### Pros:
-* This scaling function is **strictly rank preserving**.
+* This scaling function is **strictly rank preserving** and **endpoint preserving**.
 * Simple algebraic formula.
 * No numerical instability.
 * Good if you want approximately a linear stretch centered on 0%.
@@ -227,7 +227,7 @@ lesterScaling.plot_scaling_function_curves(functions=(lesterScaling.skewBottomHi
 ## "Symmetric" Skew scaling function:
 
 ### Pros:
-* This scaling function is **strictly rank preserving**.
+* This scaling function is **strictly rank preserving** and **endpoint preserving**.
 * Simple algebraic formula.
 * No numerical instability.
 * Formula is marginally less arbitrary than the other **skew** scaling functions, as it at least attempts to treat people in the top x% of the mark range symmetrically to how it treats the people in the bottom x% of the mark range.
