@@ -144,7 +144,7 @@ $$ b=a(1-x) + 2x + s-1, $$
 and
 $$ c=x (a(x-2) + 2s + 2).$$
 
-The above function is susecptible to numerical instability for \\(p\\) close to zero, so in the implementation a conditioner is applied to prevent problems.
+A naive implementation of the above function would be susecptible to numerical instability for $p$ close to zero, so in the actual implementation a conditioner is applied to prevent that problem arising.
 
 
 
