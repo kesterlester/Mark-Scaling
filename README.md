@@ -223,7 +223,7 @@ lesterScaling.plot_scaling_function_curves(functions=(lesterScaling.skewBottomHi
 * No scaling function is every truly fair. Each is arbitrary it its own way.
 
 ### Formula:
-$$ f(x,p) = \frac  1 2 (t(x,p) + b(x,p)) $$
+$$f(x,p) = \frac  1 2 (t(x,p) + b(x,p))$$
 where $t(x,p)$ and $b(x,p)$ are the top and bottom hinged skew scaling functions described earlier.
 
 
