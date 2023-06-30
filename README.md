@@ -14,7 +14,9 @@ lesterScaling.scaling_functions
     [<function lesterScaling.hyperbolic(x, p)>,
      <function lesterScaling.skewSymmetric(x, p)>,
      <function lesterScaling.skewTopHinged(x, p)>,
-     <function lesterScaling.skewBottomHinged(x, p)>]
+     <function lesterScaling.skewBottomHinged(x, p)>,
+     <function lesterScaling.cappedLinearBottomHinged(x, p)>,
+     <function lesterScaling.cappedLinearTopHinged(x, p)>]
 
 
 
@@ -69,34 +71,41 @@ print("     "+str(scaled_marks_2)+".\n")
 
 lesterScaling has no dependencies if you use only the skew scaling functions.
 
-lesterScaling depends on numpy if you use the hyperbolic scaling function.
+lesterScaling depends on numpy if you use the hyperbolic or capped linear scaling functions.
 
 lesterScaling depends on matplitlib if you use its built-in scaling function drawing methods.
 
 
-## The available scaling functions:
+## General notes applicable to all scaling functions:
 
-### General notes applicable to all scaling functions:
+Each of the scaling functions provided in this library is is a function $f(x,p)$ 
+defined on $x\in[0,1]$ and $p\in (-1,+1)$ and continuous in $x$ and $p$ with the following properties::
 
-Each of the LESTER SCALING FUNCTIONS provided in this library is is a function $f(x,p)$ 
-defined on $x\in[0,1]$ and $p\in (-1,+1)$ in such a way that the following properties hold:
+1. $f(x,p)\in[0,1]\qquad$ (i.e. marks stay in-range),
+2. $f(x,0) = x\qquad$ (i.e. $p=0$ always leads to the trivial mapping $f : x \mapsto x$),
+3. $\lim_{p\rightarrow+1} f(x,p) = 1$ for all $x\in (0,1]\qquad$ (i.e. $p\rightarrow+1$ corresponds to maximal up-scaling), and
+4. $\lim_{p\rightarrow-1} f(x,p) = 0$ for all $x \in [0,1)\qquad$ (i.e. $p\rightarrow-1$ corresponds to maximal down-scaling).
+5. $f(x,p) < f(y,p)  \implies x < y\qquad$  (i.e. a candidate who looks worse (or better) than another after scaling was worse (or better) before scaling)
 
-1. $f(x,p)\in[0,1]$.
-2. $f(x,0) = x$.
-3. $f(1,p) = 1$.
-4. $f(0,p) = 0$.
-5. $f(x,p) < f(y,p)$  if and only if $x < y$  (up to float precision effects)
-6. $f(x,p) > f(y,p)$  if and only if $x > y$  (up to float precision effects)
-7. $\lim_{p\rightarrow+1} f(x,p) = 1$ for all $x\in (0,1]$.
-8. $\lim_{p\rightarrow-1} f(x,p) = 0$ for all $x \in [0,1)$.
+### Strict Rank Preservation
 
-In other words:
+If the scaling function $f(x,p)$ additionally satisfies:
 
-* each of the LESTER SCALING FUNCTIONS is a non-linear endpoint-preserving and rank-preserving
- rescaling of $x$ on the unit interval $[0,1]$, 
-* $p=0$ always leads to the trivial mapping $f : x \mapsto x$,
-* maximal up-weigthing is approached as $p \rightarrow +1$, and
-* maximal down-weigthing is approached as $p \rightarrow -1$.
+6. $f(x,p) < f(y,p) \iff x < y\qquad$ 
+
+then the scaling function is said to be **strictly rank preserving**.   The rank preserving Property 6 is is a stronger version of Property 5 (and in fact implies 5).  Property 6 only creates post-scaling ties where those ties existed before scaling, whereas Property 5 does not prevent students becoming tied post-scaling who were not tied before.
+
+Other users need not agree, but the author takes the view that property 6 is much to be favoured over property 5, as nothing makes an examinee more angry than discoving that their work counted for nothing.
+
+### Endpoint Preservation
+If the scaling function $f(x,p)$ additionally satisfies:
+
+7. $f(1,p) = 1\qquad$
+8. $f(0,p) = 0\qquad$ 
+
+then it is said to be **endpoint preserving** (i.e. people who get 0% or 100% before scaling get the same mark after scaling).
+
+### Usage
 
 A scaling function, $f(x,p)$, could be used to scale individual raw marks as follows:
 
@@ -115,6 +124,7 @@ monotonic in $p$ (and $x$).
 ## Hyperbolic scaling function:
 
 ### Pros:
+* This scaling function is **strictly rank preserving**.
 * Very symmetric and easy to define conceptually.
 * Conceptual definition has impartiality (not favouring/disfavouring any particular class of student) at its core.
 ### Cons
@@ -153,16 +163,17 @@ lesterScaling.plot_scaling_function_curves(functions=(lesterScaling.hyperbolic,)
 
 
     
-![png](README_files/README_9_0.png)
+![png](README_files/README_8_0.png)
     
 
 
 ## "Top Hinged" Skew scaling function:
 
 ### Pros:
+* This scaling function is **strictly rank preserving**.
 * Simple algebraic formula.
 * No numerical instability.
-* Good if you want approximately a linear stretch toward centered on 100%.
+* Good if you want approximately a linear stretch centered on 100%.
 ### Cons
 * Formula is totally arbitrary (i.e. it is not constructed with any particular ideas of fairness in mind).
 * It rescales low marks very differently to high marks. It may therfore not be percieved as impartial.
@@ -180,16 +191,17 @@ lesterScaling.plot_scaling_function_curves(functions=(lesterScaling.skewTopHinge
 
 
     
-![png](README_files/README_11_0.png)
+![png](README_files/README_10_0.png)
     
 
 
 ## "Bottom Hinged" Skew scaling function:
 
 ### Pros:
+* This scaling function is **strictly rank preserving**.
 * Simple algebraic formula.
 * No numerical instability.
-* Good if you want approximately a linear stretch toward centered on 0%.
+* Good if you want approximately a linear stretch centered on 0%.
 ### Cons:
 * Formula is totally arbitrary (i.e. it is not constructed with any particular ideas of fairness in mind).
 * It rescales low marks very differently to high marks. It may therfore not be percieved as impartial.
@@ -208,13 +220,14 @@ lesterScaling.plot_scaling_function_curves(functions=(lesterScaling.skewBottomHi
 
 
     
-![png](README_files/README_13_0.png)
+![png](README_files/README_12_0.png)
     
 
 
 ## "Symmetric" Skew scaling function:
 
 ### Pros:
+* This scaling function is **strictly rank preserving**.
 * Simple algebraic formula.
 * No numerical instability.
 * Formula is marginally less arbitrary than the other **skew** scaling functions, as it at least attempts to treat people in the top x% of the mark range symmetrically to how it treats the people in the bottom x% of the mark range.
@@ -234,7 +247,65 @@ lesterScaling.plot_scaling_function_curves(functions=(lesterScaling.skewSymmetri
 
 
     
-![png](README_files/README_15_0.png)
+![png](README_files/README_14_0.png)
+    
+
+
+## "Bottom Hinged" capped linear scaling function:
+
+### Pros:
+* Simple algebraic formula.
+* No numerical instability.
+* Good if you want approximately a linear stretch centered on 0%.
+### Cons:
+* This scaling function is **not** strictly rank preserving when $p>0$, i.e. it can create ties where ties did not exist before scaling - meaning that some students' work is effectively "ignored".
+* This scaling function is **not** endpoint preserving when $p<0$ as people with 100\% are given less after scaling.
+* When $p>0$ it rescales low marks very differently to high marks. It may therfore not be percieved as impartial.
+* No scaling function is ever truly impartial. Each is arbitrary it its own way.
+
+### Notes:
+The bottom hinged cappd linear scaling functions are the top hinged ones rotated by 180 degrees about the centre of the unit square.
+### Formula:
+$$f(x,p) = \min{\left(x \cdot\frac{1+p}{1-p},\ 1\right)}$$
+
+
+
+```python
+lesterScaling.plot_scaling_function_curves(functions=(lesterScaling.cappedLinearBottomHinged,))
+```
+
+
+    
+![png](README_files/README_16_0.png)
+    
+
+
+## "Top Hinged" capped linear scaling function:
+
+### Pros:
+* Simple algebraic formula.
+* No numerical instability.
+* Good if you want approximately a linear stretch centered on 100%.
+### Cons:
+* This scaling function is **not** strictly rank preserving when $p<0$, i.e. it can create ties where ties did not exist before scaling - meaning that some students' work is effectively "ignored".
+* This scaling function is **not** endpoint preserving when $p>0$ as people with 0\% are given more after scaling.
+* When $p<0$ it rescales low marks very differently to high marks. It may therfore not be percieved as impartial.
+* No scaling function is ever truly impartial. Each is arbitrary it its own way.
+
+### Notes:
+The bottom hinged cappd linear scaling functions are the top hinged ones rotated by 180 degrees about the centre of the unit square.
+### Formula:
+$$f(x,p) = 1- \min{\left((1-x) \cdot\frac{1-p}{1+p},\ 1\right)}$$
+
+
+
+```python
+lesterScaling.plot_scaling_function_curves(functions=(lesterScaling.cappedLinearTopHinged,))
+```
+
+
+    
+![png](README_files/README_18_0.png)
     
 
 

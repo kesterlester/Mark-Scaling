@@ -84,11 +84,21 @@ def skewBottomHinged(x, p):
 def skewSymmetric(x, p):
     return 0.5*(skewTopHinged(x,p) + skewBottomHinged(x,p))
 
+def cappedLinearBottomHinged(x, p):
+    validate(p)
+    from numpy import minimum
+    return minimum(1.0, x*(1+p)/(1-p))
+
+def cappedLinearTopHinged(x, p):
+    return 1.0 - cappedLinearBottomHinged(1.0 - x, -p)
+
 scaling_functions =  [ \
         hyperbolic, \
         skewSymmetric, \
         skewTopHinged, \
         skewBottomHinged, \
+        cappedLinearBottomHinged, \
+        cappedLinearTopHinged, \
         ]
 
 def validate(p):
