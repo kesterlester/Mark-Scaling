@@ -81,34 +81,34 @@ lesterScaling depends on matplitlib if you use its built-in scaling function dra
 Each of the LESTER SCALING FUNCTIONS provided in this library is is a function $f(x,p)$ 
 defined on $x\in[0,1]$ and $p\in (-1,+1)$ in such a way that the following properties hold:
 
-1. f(x,p) is always in [0,1].
+1. $f(x,p)\in[0,1]$.
 2. $f(x,0) = x$.
 3. $f(1,p) = 1$.
 4. $f(0,p) = 0$.
 5. $f(x,p) < f(y,p)$  if and only if $x < y$  (up to float precision effects)
 6. $f(x,p) > f(y,p)$  if and only if $x > y$  (up to float precision effects)
-7. lim_{p->+1} f(x,p) = 1 for all x in (0,1].
-8. lim_{p->-1} f(x,p) = 0 for all x in [0,1).
+7. $\lim_{p\rightarrow+1} f(x,p) = 1$ for all $x\in (0,1]$.
+8. $\lim_{p\rightarrow-1} f(x,p) = 0$ for all $x \in [0,1)$.
 
 In other words:
 
 * each of the LESTER SCALING FUNCTIONS is a non-linear endpoint-preserving and rank-preserving
- rescaling of x on the unit interval [0,1], 
-* p=0 is is the trivial mapping x --> x,
-* maximal up-weigthing is approached as p --> +1, and
-* maximal dn-weigthing is approached as p --> -1.
+ rescaling of $x$ on the unit interval $[0,1]$, 
+* $p=0$ always leads to the trivial mapping $f : x \mapsto x$,
+* maximal up-weigthing is approached as $p \rightarrow +1$, and
+* maximal down-weigthing is approached as $p \rightarrow -1$.
 
-A scaling function, f, could be used to scale individual raw marks as follows:
+A scaling function, $f(x,p)$, could be used to scale individual raw marks as follows:
 
         scaled_mark = max_mark * f(raw_mark/max_mark, p)
 
-where max_mark is the largest mark possible (usually 100), and "p" is a strength of the scaling.
+where max_mark is the largest mark possible (usually 100), and "$p$" is a strength of the scaling.
 
 Note that the non-linear nature of these scaling functions means that the value of 
-p needed to achieve any given movement of the mean of the distrubution being scaled cannot usually be found without iteration. 
+$p$ needed to achieve any given movement of the mean of the distrubution being scaled cannot usually be found without iteration. 
 However, it is a simple matter to play a shooting-game to establish
-the correct value of p to any desired mean movement as the family of functions is 
-monotonic in p (and x).
+the correct value of $p$ to any desired mean movement as the family of functions is 
+monotonic in $p$ (and $x$).
 
 
 
