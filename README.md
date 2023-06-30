@@ -118,7 +118,7 @@ monotonic in p (and x).
 * Very symmetric and easy to define conceptually.
 * Conceptual definition has impartiality (not favouring/disfavouring any particular class of student) at its core.
 ### Cons
-* Implementation must consider and work around instability at \\(p=0\\).
+* Implementation must consider and work around instability at $p=0$.
 * Algebraic forumla looks opaque.
 * No scaling function is every truly fair. Each is arbitrary it its own way.
 ### Formula:
