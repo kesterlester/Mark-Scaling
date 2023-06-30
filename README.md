@@ -127,23 +127,23 @@ These are the UNIQUELY determined family of hyperbolae (in \\( (x,f(x,p)) \\) sp
 *  each hyperbola passes through the top right and bottom left corners of the unit square with corners (0,0) amd (1,1), 
 *  each hyperbola is symmetric about the diagonal running from top-left to bottom right of that unit square,
 *  the location of the midpoint of each hyperbola,  \\(\text{mid}(p)\\), satisfies:
-\\(                         \text{mid}(p) = (1/2 - p/2, 1/2 + p/2) \\)
+$$                         \text{mid}(p) = (1/2 - p/2, 1/2 + p/2) $$
            ... i.e.  the last-mentioned diagonal is traversed at uniform speed if "p" 
            is varied at constant speed, and 
 * they hyperbolae are assymptotic to the boundaries of the unit square at as \\(p\\) tends to \\(\pm1\\).
 
 The above requirements force:
-\\[ f(x,p) = {b - \sqrt{b^2-ac} \over a} \\]
+$$ f(x,p) = {b - \sqrt{b^2-ac} \over a}$$
 
 where
 
-\\[ s = \text{sign} (p), \\]
+$$ s = \text{sign} (p),$$
 
-\\[ a=(1-|p|)^2, \\]
+$$ a=(1-|p|)^2, $$
 
-\\[ b=a(1-x) + 2x + s-1, \\]
+$$ b=a(1-x) + 2x + s-1, $$
 and
-\\[ c=x (a(x-2) + 2s + 2). \\]
+$$ c=x (a(x-2) + 2s + 2).$$
 
 The above function is susecptible to numerical instability for \\(p\\) close to zero, so in the implementation a conditioner is applied to prevent problems.
 
