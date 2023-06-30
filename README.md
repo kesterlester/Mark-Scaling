@@ -120,7 +120,7 @@ monotonic in p (and x).
 ### Cons
 * Implementation must consider and work around instability at $p=0$.
 * Algebraic forumla looks opaque.
-* No scaling function is every truly fair. Each is arbitrary it its own way.
+* No scaling function is ever truly impartial. Each is arbitrary it its own way.
 ### Formula:
 
 These are the UNIQUELY determined family of hyperbolae (in $(x,f(x,p))$ space with the following properties:
@@ -166,7 +166,7 @@ lesterScaling.plot_scaling_function_curves(functions=(lesterScaling.hyperbolic,)
 ### Cons
 * Formula is totally arbitrary (i.e. it is not constructed with any particular ideas of fairness in mind).
 * It rescales low marks very differently to high marks. It may therfore not be percieved as impartial.
-* No scaling function is every truly fair. Each is arbitrary it its own way.
+* No scaling function is ever truly impartial. Each is arbitrary it its own way.
 ### Notes:
 The top hinged skew scaling functioins are the bottom hinged ones rotated by 180 degrees about the centre of the unit square.
 
@@ -193,7 +193,7 @@ lesterScaling.plot_scaling_function_curves(functions=(lesterScaling.skewTopHinge
 ### Cons:
 * Formula is totally arbitrary (i.e. it is not constructed with any particular ideas of fairness in mind).
 * It rescales low marks very differently to high marks. It may therfore not be percieved as impartial.
-* No scaling function is every truly fair. Each is arbitrary it its own way.
+* No scaling function is ever truly impartial. Each is arbitrary it its own way.
 
 ### Notes:
 The bottom hinged skew scaling functioins are the top hinged ones rotated by 180 degrees about the centre of the unit square.
@@ -220,7 +220,7 @@ lesterScaling.plot_scaling_function_curves(functions=(lesterScaling.skewBottomHi
 * Formula is marginally less arbitrary than the other **skew** scaling functions, as it at least attempts to treat people in the top x% of the mark range symmetrically to how it treats the people in the bottom x% of the mark range.
 ### Cons:
 * Formula is still fairly arbitrary.
-* No scaling function is every truly fair. Each is arbitrary it its own way.
+* No scaling function is ever truly impartial. Each is arbitrary it its own way.
 
 ### Formula:
 $$f(x,p) = \frac  1 2 (t(x,p) + b(x,p))$$
