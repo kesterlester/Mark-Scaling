@@ -265,7 +265,7 @@ lesterScaling.plot_scaling_function_curves(functions=(lesterScaling.skewSymmetri
 * No scaling function is ever truly impartial. Each is arbitrary it its own way.
 
 ### Notes:
-The bottom hinged cappd linear scaling functions are the top hinged ones rotated by 180 degrees about the centre of the unit square.
+The bottom hinged capped linear scaling functions are the top hinged ones rotated by 180 degrees about the centre of the unit square.
 ### Formula:
 $$f(x,p) = \min{\left(x \cdot\frac{1+p}{1-p},\ 1\right)}$$
 
@@ -295,7 +295,7 @@ lesterScaling.plot_scaling_function_curves(functions=(lesterScaling.cappedLinear
 * No scaling function is ever truly impartial. Each is arbitrary it its own way.
 
 ### Notes:
-The bottom hinged cappd linear scaling functions are the top hinged ones rotated by 180 degrees about the centre of the unit square.
+The bottom hinged capped linear scaling functions are the top hinged ones rotated by 180 degrees about the centre of the unit square.
 ### Formula:
 $$f(x,p) = 1- \min{\left((1-x) \cdot\frac{1-p}{1+p},\ 1\right)}$$
 
