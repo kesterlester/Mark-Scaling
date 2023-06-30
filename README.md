@@ -1,4 +1,4 @@
-# A library of mark scaling functions which preserve endpoints.
+# A library of mark scaling functions.  Some preserve ranks and or endpoints.
 
 ## The following scaling functions are available:
 
