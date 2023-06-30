@@ -261,6 +261,7 @@ lesterScaling.plot_scaling_function_curves(functions=(lesterScaling.skewSymmetri
 * This scaling function is **not** strictly rank preserving when $p>0$, i.e. it can create ties where ties did not exist before scaling - meaning that some students' work is effectively "ignored".
 * This scaling function is **not** endpoint preserving when $p<0$ as people with 100\% are given less after scaling.
 * When $p>0$ it rescales low marks very differently to high marks. It may therfore not be percieved as impartial.
+* This scaling function is not smooth (although it is continuous) so its use can lead to artefacts appearing in derived distributions.
 * No scaling function is ever truly impartial. Each is arbitrary it its own way.
 
 ### Notes:
@@ -290,6 +291,7 @@ lesterScaling.plot_scaling_function_curves(functions=(lesterScaling.cappedLinear
 * This scaling function is **not** strictly rank preserving when $p<0$, i.e. it can create ties where ties did not exist before scaling - meaning that some students' work is effectively "ignored".
 * This scaling function is **not** endpoint preserving when $p>0$ as people with 0\% are given more after scaling.
 * When $p<0$ it rescales low marks very differently to high marks. It may therfore not be percieved as impartial.
+* This scaling function is not smooth (although it is continuous) so its use can lead to artefacts appearing in derived distributions.
 * No scaling function is ever truly impartial. Each is arbitrary it its own way.
 
 ### Notes:
