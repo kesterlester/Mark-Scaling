@@ -136,7 +136,7 @@ monotonic in $p$ (and $x$).
 These are the UNIQUELY determined family of hyperbolae (in $(x,f(x,p))$-space) with the following properties:
 *  each hyperbola passes through the top right and bottom left corners of the unit square with corners (0,0) amd (1,1), 
 *  each hyperbola is symmetric about the diagonal running from top-left to bottom right of that unit square,
-*  the location of the midpoint of each hyperbola,  $\text{mid}(p)$, satisfies: $\text{mid}(p) = (1/2 - p/2, 1/2 + p/2)$ ... i.e.  the last-mentioned diagonal is traversed at uniform speed if "$p$" 
+*  the location of the midpoint of each hyperbola,  $\text{mid}(p)$, satisfies: $\text{mid}(p) = (1/2 - p/2, 1/2 + p/2)$ ... i.e. the diagonal mentioned in the last bullet point is traversed at uniform speed if "$p$" 
            is varied at constant speed, and 
 * they hyperbolae are assymptotic to the boundaries of the unit square at as $p$ tends to $\pm1$.
 
