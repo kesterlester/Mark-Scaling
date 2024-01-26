@@ -174,6 +174,7 @@ lesterScaling.plot_scaling_function_curves(functions=(lesterScaling.hyperbolic,)
 * Simple algebraic formula.
 * No numerical instability.
 * Good if you want approximately a linear stretch centered on 100%.
+* Easily invertible (is self inverse under $p\rightarrow -p$).
 ### Cons
 * Formula is totally arbitrary (i.e. it is not constructed with any particular ideas of fairness in mind).
 * It rescales low marks very differently to high marks. It may therfore not be percieved as impartial.
@@ -181,8 +182,12 @@ lesterScaling.plot_scaling_function_curves(functions=(lesterScaling.hyperbolic,)
 ### Notes:
 The top hinged skew scaling functioins are the bottom hinged ones rotated by 180 degrees about the centre of the unit square.
 
-### Formula:
+### Scaling function:
 $$ f(x,p) = x^{\frac {1-p}{1+p}}$$
+
+### Inverse scaling function:
+$$ f^{-1}(x,p) = x^{\frac {1+p}{1-p}} = f(x,-p)$$
+
 
 
 ```python
@@ -202,6 +207,7 @@ lesterScaling.plot_scaling_function_curves(functions=(lesterScaling.skewTopHinge
 * Simple algebraic formula.
 * No numerical instability.
 * Good if you want approximately a linear stretch centered on 0%.
+* Easily invertible (is self inverse under $p\rightarrow -p$).
 ### Cons:
 * Formula is totally arbitrary (i.e. it is not constructed with any particular ideas of fairness in mind).
 * It rescales low marks very differently to high marks. It may therfore not be percieved as impartial.
@@ -209,8 +215,12 @@ lesterScaling.plot_scaling_function_curves(functions=(lesterScaling.skewTopHinge
 
 ### Notes:
 The bottom hinged skew scaling functioins are the top hinged ones rotated by 180 degrees about the centre of the unit square.
-### Formula:
+
+### Scaling function:
 $$f(x,p) = 1-(1-x)^{\frac {1+p}{1-p}}$$
+
+### Inverse scaling function:
+$$f^{-1}(x,p) = 1-(1-x)^{\frac {1-p}{1+p}}=f(x,-p)$$
 
 
 
