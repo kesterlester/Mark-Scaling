@@ -83,9 +83,9 @@ defined on $x\in[0,1]$ and $p\in (-1,+1)$ and continuous in $x$ and $p$ with the
 
 1. $f(x,p)\in[0,1]\qquad$ (i.e. marks stay in-range),
 2. $f(x,0) = x\qquad$ (i.e. $p=0$ always leads to the trivial mapping $f : x \mapsto x$),
-3. $\lim_{p\rightarrow+1} f(x,p) = 1$ for all $x\in (0,1]\qquad$ (i.e. $p\rightarrow+1$ corresponds to maximal up-scaling), and
-4. $\lim_{p\rightarrow-1} f(x,p) = 0$ for all $x \in [0,1)\qquad$ (i.e. $p\rightarrow-1$ corresponds to maximal down-scaling).
-5. $f(x,p) < f(y,p)  \implies x < y\qquad$  (i.e. a candidate who looks worse (or better) than another after scaling was worse (or better) before scaling)
+3. $\lim_{p\rightarrow+1} f(x,p) = 1$ for all $x\in (0,1]\qquad$ (i.e. $p\rightarrow+1$ corresponds to maximal up-scaling),
+4. $\lim_{p\rightarrow-1} f(x,p) = 0$ for all $x \in [0,1)\qquad$ (i.e. $p\rightarrow-1$ corresponds to maximal down-scaling), and
+5. $f(x,p) < f(y,p)  \implies x < y\qquad$  (i.e. a candidate who looks worse (or better) than another after scaling was worse (or better) before scaling).
 
 ### Strict Rank Preservation
 
