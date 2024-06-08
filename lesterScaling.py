@@ -105,7 +105,11 @@ def validate(p):
     if p>=1 or p<=-1:
         raise ValueError("The strength parameter for a mark rescaling must be in (-1,1). I.e. it must must be less than 1.0 and greater than -1.0. You chose "+str(p))
 
-def plot_scaling_function_curves(functions=scaling_functions, p_values=None, figsize=(10,10), pdfPathPrefix="", pngPathPrefix=""):
+# In the next function, p_values can be None (in which case a default selection is ploted) or otherwise a list of desired values.
+# If a list of desired values is supplied, then optionally p_info can be supplied as an equally sized (and similarly ordered) list
+# of labels to add to the label to give more info about each p_valye.  E.g.:
+# plot_scaling_function_curves(functions=[f1,f2], p_values=[-0.1,+0.1], p_info=["low", "high"])
+def plot_scaling_function_curves(functions=scaling_functions, p_values=None, figsize=(10,10), pdfPathPrefix="", pngPathPrefix="", p_info=None):
     import matplotlib.pyplot as plt
     import numpy as np
     
@@ -127,11 +131,14 @@ def plot_scaling_function_curves(functions=scaling_functions, p_values=None, fig
         plt.gca().set(xlabel="x     (raw mark fraction)")
         plt.gca().set(ylabel="f(x,p)     (scaled mark fraction)")
     
-        for p in p_values:
+        for idp, p in enumerate(p_values):
           rounded_p = round(p,2)
           # Round p for reasons of space, but don't mislead readers into thinking that p is allowed to be 1 or -1:
           p_for_label = rounded_p if (abs(rounded_p) != 1.0) else p
-          plt.plot(x, scaling_function(x,p), linewidth=2, label="p="+str(p_for_label))
+          p_label = "p="+str(p_for_label)
+          if p_info:
+            p_label = p_info[idp] + " ("+p_label+")"
+          plt.plot(x, scaling_function(x,p), linewidth=2, label=p_label)
        
         #add legend
         plt.legend()
